@@ -8,7 +8,10 @@ import { Session } from "next-auth";
 
 export default function Home() {
   const { data: session } = useSession();
-  const reloadSession = () => {};
+  const reloadSession = () => {
+    const event = new Event("visibilitychange");
+    document.dispatchEvent(event);
+  };
   return (
     <div>
       <Head>
@@ -18,6 +21,7 @@ export default function Home() {
       </Head>
 
       <Box>
+        {session?.user.username}
         {session?.user?.username ? (
           <Chat />
         ) : (
